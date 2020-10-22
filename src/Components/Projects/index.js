@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import ImageTextSection from './../ImageTextSection';
 import { getProjects } from './../../content/projects_content';
 import ProjectCard from './ProjectCard';
-
+import ProjectHeatmap from './ProjectHeatmap'
 function Projects(props) {
   const projects = getProjects();
   return (
@@ -45,6 +45,7 @@ function Projects(props) {
       {/* 
       <SectionHeader title="Partners" />
       <Sponsors /> */}
+      <ProjectHeatmap/>
     </View>
   );
 }
