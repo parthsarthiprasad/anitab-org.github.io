@@ -17,22 +17,41 @@ function ProjectHeatmap() {
     const [data, setdata] = useState([]);
 
     useEffect(() => {
+        tempdata = []
+        var promises = [];
         fetch("https://api.github.com/orgs/anitab-org/repos")
         .then(res => res.json())
-        .then((res) =>{
-            var tdata = []
-            res.forEach((element) => {
-                var uri = element.url + "/stats/commit_activity";
-                fetch({uri})
-                .then(data => data.json())
-                .then(data => tdata.push(data))
-                .catch(error => console.log(error))
+        .then(res =>{
+            res.forEach(element =>{
+                
+                tempdata.push(element.url)
             })
-            return tdata;
         })
-        .then(data => setdata(data))
-        .catch((error)=> console.log(error, "unable to fetch repo data"))
-        .finally(()=> setisLoading(false))
+        
+        vardata = []
+        tempdata.forEach(element =>{
+            fetch(element + "/stats/participation")
+            .then(data => data.json())
+            .then(data=> pushdata.push(data))
+        })
+
+        
+        // fetch("https://api.github.com/orgs/anitab-org/repos")
+        // .then(res => res.json())
+        // .then((res) =>{
+        //     var tdata = []
+        //     res.forEach((element) => {
+        //         var uri = element.url + "/stats/commit_activity";
+        //         fetch({uri})
+        //         .then(data => data.json())
+        //         .then(data => tdata.push(data))
+        //         .catch(error => console.log(error))
+        //     })
+        //     return tdata;
+        // })
+        // .then(data => setdata(data))
+        // .catch((error)=> console.log(error, "unable to fetch repo data"))
+        // .finally(()=> setisLoading(false))
         
         
     }, []);
